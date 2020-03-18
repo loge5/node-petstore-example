@@ -3,6 +3,7 @@
 This is just an example for a node.js microservice using express.
 
 * [Installation](#Installation)
+  * [Docker](#Docker)
 * [API-Documentation](#API-Documentation)
 * [Unit-Tests](#Unit-Tests)
 * [Development](#Development)
@@ -11,14 +12,24 @@ This is just an example for a node.js microservice using express.
   * [Releasing](#Releasing)
 
 # Installation
+```shell
+# download required modules
+npm install
 
-Download required modules:
+# start service
+npm start
+```
+## Docker
 
-`npm install`
+It's also possible to run the service in a docker container.
 
-Start service:
+```shell
+# build
+docker build -t petstore .
 
-`npm start`
+# run
+docker run -d -p 3000:3000 petstore
+```
 
 # API Documentation
 
@@ -33,25 +44,13 @@ Used Modules:
 * http://chaijs.com
 * https://github.com/istanbuljs/nyc
 
-Tests are defined in:
+```shell
+# run tests
+npm test
 
-`/test.js`
-
-Add tests:
-
+# check code coverage (creates "./coverage/index.html")
+npm run-script cover
 ```
-//...
-mocha.addFile('lib/logger.spec');
-//...
-```
-
-Run tests:
-
-`npm test`
-
-Check code coverage (creates "./coverage/index.html"):
-
-`npm run-script cover`
 
 # Development
 
