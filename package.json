@@ -1,0 +1,53 @@
+{
+  "name": "petstore-example",
+  "version": "1.0.0",
+  "description": "Example implementation of the openapi petstore",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:loge5/node-petstore-example.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "startforever": "forever app.js",
+    "test": "mocha --recursive \"lib/**/*.spec.js\"",
+    "cover": "node node_modules/nyc/bin/nyc.js --reporter=html npm test",
+    "format": "node node_modules/standard/bin/cmd.js --fix",
+    "prerelease": "npm test",
+    "release": "standard-version",
+    "postrelease": "git push --follow-tags origin master"
+  },
+  "keywords": [
+    "example",
+    "rest",
+    "openapi",
+    "swagger"
+  ],
+  "author": "Rolf Loges",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0",
+    "nyc": "^15.0.0",
+    "standard": "^14.3.3",
+    "standard-version": "^7.1.0"
+  },
+  "dependencies": {
+    "another-fluent-validator": "^1.6.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "forever": "^2.0.0"
+  },
+  "standard": {
+    "ignore": [
+      "swaggerui-dist"
+    ]
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "swaggerui-dist",
+      "config"
+    ]
+  }
+}
