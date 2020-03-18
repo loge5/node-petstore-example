@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "startforever": "forever app.js",
+    "startforever": "forever index.js",
     "test": "mocha --recursive \"lib/**/*.spec.js\"",
     "cover": "node node_modules/nyc/bin/nyc.js --reporter=html npm test",
     "format": "node node_modules/standard/bin/cmd.js --fix",
