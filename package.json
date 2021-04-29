@@ -25,11 +25,11 @@
   "author": "Rolf Loges",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^7.2.0",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
     "nyc": "^15.1.0",
-    "standard": "^14.3.4",
-    "standard-version": "^8.0.1"
+    "standard": "^16.0.3",
+    "standard-version": "^9.2.0"
   },
   "dependencies": {
     "another-fluent-validator": "^1.6.3",
