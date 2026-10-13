@@ -7,7 +7,7 @@ WORKDIR /usr/src/service
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-COPY --chown=node:node . .
+COPY . .
 
 USER node
 EXPOSE 3000

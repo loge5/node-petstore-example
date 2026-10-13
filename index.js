@@ -1,44 +1,12 @@
-const express = require('express')
 const fs = require('fs')
 const https = require('https')
 const cryptoConstants = require('crypto').constants
 const mainConfig = require('./config/main.config')
-const HttpError = require('./lib/HttpError')
+const createApp = require('./app')
+const PetStore = require('./lib/PetStore')
+const MockDatabase = require('./lib/MockDatabase')
 
-const app = express()
-app.use(express.urlencoded({
-  extended: true,
-  limit: '5mb'
-}))
-app.use(express.json())
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
-app.use('/', express.static('./swaggerui-dist'))
-app.use('/pets', require('./routes/pets'))
-app.use(function (req, res, next) {
-  console.warn('Route Not Found: ' + req.url)
-  res.status(404).json({ code: 404, message: 'Not Found' })
-})
-app.use(function (err, req, res, next) {
-  if (err instanceof HttpError) {
-    // don't expose internal errors because of security
-    if (err.status >= 400 && err.status < 500) {
-      console.warn(err.toString())
-      res.status(err.status).json({ code: err.status, message: err.message })
-    } else {
-      console.error(err.toString())
-      res.status(err.status).json({ code: err.status, message: err.getHttpMessage() })
-    }
-  } else {
-    console.error(err)
-    res.status(500).json({ code: 500, message: 'Internal Server Error' })
-  }
-})
-app.set('etag', false)
+const app = createApp({ petStore: new PetStore(new MockDatabase()) })
 if (mainConfig.useHttps) {
   const credentials = {
     key: fs.readFileSync('/etc/ssl/server.key', 'utf8'),

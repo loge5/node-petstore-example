@@ -7,3 +7,4 @@ Dockerfile
 .dockerignore
 **/*.spec.js
 CHANGELOG.md
+test
