@@ -1,11 +1,14 @@
-FROM node
+FROM node:24-alpine
 
-# copy source and install npm packages
-RUN mkdir -p /usr/src/service
+ENV NODE_ENV=production
 WORKDIR /usr/src/service
-COPY package.json /usr/src/service/
-RUN npm install --production
-COPY . /usr/src/service
 
-EXPOSE  3000
-CMD npm run-script startforever
+# install production dependencies first to keep this layer cached
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+
+COPY --chown=node:node . .
+
+USER node
+EXPOSE 3000
+CMD ["node", "index.js"]

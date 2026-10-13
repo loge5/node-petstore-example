@@ -1,0 +1,9 @@
+.git
+.gitignore
+.vscode
+node_modules
+coverage
+Dockerfile
+.dockerignore
+**/*.spec.js
+CHANGELOG.md

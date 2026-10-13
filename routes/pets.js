@@ -1,39 +1,29 @@
 const express = require('express')
 const router = express.Router()
-const asyncWrapper = require('./asyncWrapper')
 const RequestParser = require('../lib/RequestParser')
 const PetStore = require('../lib/PetStore')
 const MockDatabase = require('../lib/MockDatabase')
-const mockDatabase = new MockDatabase()
+const petStore = new PetStore(new MockDatabase())
 
-router.get('/', asyncWrapper(async (req, res) => {
-  const petStore = new PetStore(mockDatabase)
-  const pets = petStore.findPets()
-  res.status(200).json(pets)
-}))
-router.post('/', asyncWrapper(async (req, res) => {
-  const pet = RequestParser.parsePet(req.body)
-  const petStore = new PetStore(mockDatabase)
-  petStore.insertPet(pet)
+router.get('/', (req, res) => {
+  res.status(200).json(petStore.findPets())
+})
+router.post('/', (req, res) => {
+  petStore.insertPet(RequestParser.parsePet(req.body))
   res.status(201).send()
-}))
-router.get('/:petId', asyncWrapper(async (req, res) => {
+})
+router.get('/:petId', (req, res) => {
   const petId = RequestParser.parsePetId(req.params)
-  const petStore = new PetStore(mockDatabase)
-  const pets = petStore.findPet(petId)
-  res.status(200).send(pets)
-}))
-router.put('/:petId', asyncWrapper(async (req, res) => {
+  res.status(200).send(petStore.findPet(petId))
+})
+router.put('/:petId', (req, res) => {
   const petId = RequestParser.parsePetId(req.params)
   const pet = RequestParser.parsePet(req.body)
-  const petStore = new PetStore(mockDatabase)
   petStore.updatePet(petId, pet)
   res.status(200).send()
-}))
-router.delete('/:petId', asyncWrapper(async (req, res) => {
-  const petId = RequestParser.parsePetId(req.params)
-  const petStore = new PetStore(mockDatabase)
-  petStore.deletePet(petId)
+})
+router.delete('/:petId', (req, res) => {
+  petStore.deletePet(RequestParser.parsePetId(req.params))
   res.status(200).send()
-}))
+})
 module.exports = router

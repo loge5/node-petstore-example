@@ -1,5 +1,4 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const fs = require('fs')
 const https = require('https')
 const cryptoConstants = require('crypto').constants
@@ -7,11 +6,11 @@ const mainConfig = require('./config/main.config')
 const HttpError = require('./lib/HttpError')
 
 const app = express()
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
   extended: true,
   limit: '5mb'
 }))
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers',
