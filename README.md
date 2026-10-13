@@ -40,9 +40,7 @@ docker run -d -p 3000:3000 petstore
 # Unit-Tests
 
 Used Modules:
-* https://mochajs.org/
-* http://chaijs.com
-* https://github.com/istanbuljs/nyc
+* https://jestjs.io/
 
 ```shell
 # run tests
